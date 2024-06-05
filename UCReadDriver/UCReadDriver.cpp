@@ -3,8 +3,6 @@
 #include "driver_loader.h"
 #include "driver.h"
 
-
-
 int main()
 {
     driver_loader my_driver_loader;

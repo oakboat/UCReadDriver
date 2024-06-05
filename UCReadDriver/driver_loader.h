@@ -84,7 +84,7 @@ public:
         return true;
     }
 
-    bool unload_driver(const std::wstring& driver_name, const std::wstring& driver_path) {
+    bool unload_driver(const std::wstring& driver_path, const std::wstring& driver_name) {
         SC_HANDLE sc_manager = OpenSCManager(NULL, NULL, SC_MANAGER_CREATE_SERVICE);
         if (!sc_manager) {
             std::wcerr << L"OpenSCManager failed: " << GetLastError() << std::endl;
