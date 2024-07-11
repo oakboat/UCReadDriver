@@ -35,7 +35,15 @@ int main()
     std::cout << "Base Address: " << my_driver.get_base_section_address(pid) << "\n";
     std::cout << "Read value: " << my_driver.read_process_memory<int>(pid, (ULONG64) & test_value) << "\n";
 
-    std::cin.get();
+    uintptr_t thread_id = 0;
+    my_driver.get_dwm_thread_id(pid, &thread_id);
+    while (thread_id == 0 && !(GetAsyncKeyState(VK_F1) & 0x8000))
+    {
+        Sleep(1000);
+    }
+    std::cout << thread_id << "\n";
+    my_driver.get_dwm_thread_id(0, 0);
+
     my_driver.~driver();
     my_driver_loader.unload_driver(system_driver_path, driver_name);
 }

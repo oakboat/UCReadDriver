@@ -59,6 +59,23 @@ public:
 		}
 		return false;
 	}
+
+	bool get_dwm_thread_id(ULONG32 pid, void* buffer)
+	{
+		struct GET_DWM_THREAD_ID
+		{
+			ULONG32 pid;
+			void* buffer;
+		};
+		GET_DWM_THREAD_ID request{};
+		request.pid = pid;
+		request.buffer = buffer;
+		if (DeviceIoControl(hDevice, 0x1120E040 + 8 + 4, &request, sizeof(request), &request, sizeof(request), 0, 0))
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	template<typename T>
 	bool read_process_memory(ULONG32 pid, ULONG64 target_address, T* buffer)
